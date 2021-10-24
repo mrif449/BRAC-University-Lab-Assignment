@@ -1,0 +1,352 @@
+Name: Md. Rahadul Islam Fardin
+ID: 2010163
+Section: 07
+======================================
+### Linear Arrays
+
+# Answer to the Question Number: 1 (Shift Left k Cells)
+def shiftLeft( source, k):
+    temp_list1 = []
+    lengh1 = 0
+    lengh2 = 0
+    for i in source:
+        lengh1 += 1
+    for x in range(k,lengh1):
+        temp_list1.append(source[k])
+        k += 1
+    for j in temp_list1:
+        lengh2 += 1
+    add = lengh1 - lengh2
+    while lengh2 <= lengh1:
+        temp_list1.append(0)
+        lengh2 += 1
+    print(temp_list1)
+source=[10,20,30,40,50,60]
+shiftLeft(source,3)
+
+# Answer to the Question Number: 2 (Rotate Left k cells)
+def rotateLeft(source,k):
+    temp_list1 = []
+    length = 0
+    for i in source:
+        length += 1
+    for x in range(k,length):
+        temp_list1.append(source[k])
+        k += 1
+    for y in source:
+        if y not in temp_list1:
+            temp_list1.append(y)
+    print(temp_list1) 
+source=[10,20,30,40,50,60]
+rotateLeft(source,3)
+
+# Answer to the Question Number: 3 (Remove an element from an array)
+def remove(source, size, idx):
+    temp_list = []
+    length = 0
+    for i in source:
+        length += 1
+    for x in source:
+        if x != source[idx]:
+            temp_list.append(x)
+    while len(temp_list)<length:
+        temp_list.append(0)
+    print(temp_list)
+
+source = [10,20,30,40,50,0,0]
+remove(source,5,2)
+
+# Answer to the Question Number: 4 (Remove all occurrences of a particular element from an array)
+def removeAll(source, size, element):
+    temp_list = []
+    length1 = 0
+    length2 = 0
+    for i in source:
+        length1 += 1
+    for x in source:
+        if x != element:
+            temp_list.append(x)
+    for j in temp_list:
+        length2 += 1
+    while length2 < length1:
+        temp_list.append(0)
+        length2 += 1
+    print(temp_list)
+source=[10,2,30,2,50,2,2,0,0]
+removeAll(source,7,2)
+
+# Answer to the Question Number: 5 (Splitting an Array)
+def beam_balance(source):
+    length = 0
+    temp_1 = []
+    temp_2 = []
+    temp_3 = []
+    temp_4 = []
+    sum1 = 0
+    sum2 = 0
+    sum3 = 0
+    sum4 = 0
+    for i in source:
+        length += 1
+    reversed_list=[0]*length 
+    i=0
+    j=len(reversed_list)-1 
+    while(i<len(source)):
+        reversed_list[j]=source[i] 
+        i=i+1
+        j=j-1
+    print(reversed_list)
+    if length%2 == 0:
+        for x in range(int(length/2)):
+            temp_1.append(source[x])
+        for y in range(int(length/2)):
+            temp_2.append(reversed_list[y])
+        for a in temp_1:
+            sum1 += a
+        for b in temp_2:
+            sum2 += b
+        if sum1 == sum2:
+            print("true")
+        else:
+            print("false")
+    else:
+        for x in range(int((length/2)//1)+1):
+            temp_1.append(source[x])
+        for y in range(int((length/2)//1)):
+            temp_2.append(reversed_list[y])
+        for k in range(int((length/2)//1)):
+            temp_3.append(source[k])
+        for l in range(int((length/2)//1+1)):
+            temp_4.append(reversed_list[l])
+        for a in temp_1:
+            sum1 += a
+        for b in temp_2:
+            sum2 += b
+        for c in temp_3:
+            sum3 += c
+        for d in temp_4:
+            sum4 += d
+        print(temp_1)
+        print(temp_2)
+        print(temp_3)
+        print(temp_4)
+        if sum1 == sum2 or sum3 == sum4:
+            print("true")
+        else:
+            print("false")
+source = [10, 3, 1, 2, 10]
+beam_balance(source)
+
+# Answer to the Question Number: 6 (Array series)
+def array_series(n):
+    count=1
+    s=1
+    l='{'
+    for i in range(1,n+1):
+        count=1
+        for j in range(1,n+1):
+            if(count<=n-i): l+='0'
+            else: l+=str(n-count+1)
+            count+=1
+            if(i==n and j!=n): l+=','
+            elif(i<n): l+=','
+        if(i<n): l+=' '
+        else: l+='}'
+    print(l)
+n = 4
+array_series(n)
+
+# Answer to the Question Number: 7 (Max Bunch Count)
+def Max_Bunch_count(array):
+    count = 0
+    highest = 0
+    for x in range(len(array)):
+            if array[x] == array[x-1]:
+                count += 1
+                if count > highest:
+                    highest = count
+            else:
+                count = 0
+    print(highest+1)
+array = [1, 2, 2, 3, 4, 4, 4]
+Max_Bunch_count(array)
+
+# Answer to the Question Number: 8 (Repetition)
+def Repetition(array):
+    counter = []
+    new_list = []
+    single_list = []
+    highest =0
+    while array:
+        min = array[0]  
+        for x in array: 
+            if x < min:
+                min = x
+        new_list.append(min)
+        array.remove(min)
+    count = 0
+    for x in range(len(new_list)):
+        if x > 0 and new_list[x] != new_list[x-1]:
+            if count != 1:
+                counter.append(count)
+            count = 0
+        count+=1
+        if(x==len(new_list)-1):
+            if count != 1:
+                counter.append(count)
+    unique = []
+    for x in counter:
+        if x not in unique:
+            unique.append(x)
+    if unique != counter:
+        print(True)
+    else:
+        print(False) 
+array = [4,5,6,6,4,3,6,4]
+Repetition(array)
+
+
+### Circular Array
+
+# Answer to the Question Number: 1 (Palindrome)
+def Palindrome(array,start,size):
+    reversed_array = []
+    length = len(array)
+    temp_list1 = []
+    temp_list2 = []
+    counter = 0
+    counter2 = 0
+    index1 = start
+    index2 = start
+    while counter < size:
+        if array[index1] != 0:
+            temp_list1.append(array[index1])
+        index1 = (index1 + 1)% len(array)
+        counter += 1
+    for x in range(length):
+        reversed_array.append(array[length-1])
+        length -= 1
+    while counter2 < size:
+        if reversed_array[index2] != 0:
+            temp_list2.append(reversed_array[index2])
+            counter2 += 1
+        index2 = (index2 + 1)% len(reversed_array)
+    if temp_list1 == temp_list2:
+        print(True)
+    else:
+        print(False)
+array = [20,10,0,0,0,10,20,30]
+Palindrome(array,5,5)
+
+# Answer to the Question Number: 2 (Intersection)
+def	Intersection(array1,start1,size1,array2,start2,size2):
+    temp_list1 = []
+    temp_list2 = []
+    final = []
+    counter = 0
+    counter2 = 0
+    index1 = start1
+    index2 = start2
+    while counter < size1:
+        if array1[index1] != 0:
+            temp_list1.append(array1[index1])
+        index1 = (index1 + 1)% len(array1)
+        counter += 1
+    while counter2 < size2:
+        if array2[index2] != 0:
+            temp_list2.append(array2[index2])
+            counter2 += 1
+        index2 = (index2 + 1)% len(array2)
+    for x in temp_list1:
+        for y in temp_list2:
+            if x==y:
+                final.append(x)
+    print(final)
+array1= [40,50,0,0,0,10,20,30]
+start1 = 5
+size1 = 5
+array2 = [10,20,5,0,0,0,0,0,5,40,15,25]
+start2 = 8
+size2 = 7
+Intersection(array1,start1,size1,array2,start2,size2)
+
+# Answer to the Quesytion Number: 3
+import random
+
+def rightRotate(source):
+    index1 = random.randint(0,3)
+    index2 = random.randint(0,3)
+    index3 = random.randint(0,3)
+    index4 = random.randint(0,3)
+    index5 = random.randint(0,2)
+    index6 = random.randint(0,1)
+    
+    temp_list1 = []
+    temp_list2 = []
+    temp_list3 = []
+    temp_list4 = []
+    temp_list5 = []
+    temp_list6 = []
+
+    for a in source:
+        temp_list1.append(a)
+    count = 0
+    while count<len(source):
+        temp_list1[index1] = source[count]
+        count += 1
+        index1 = (index1+1)%len(source)
+    temp_list1.pop(3)
+    print(temp_list1)
+    
+    for b in temp_list1:
+        temp_list2.append(b)
+    count = 0
+    while count<len(temp_list1):
+        temp_list2[index2] = temp_list1[count]
+        count += 1
+        index2 = (index2+1)%len(temp_list1)
+    temp_list2.pop(2)
+    print(temp_list2)
+
+    for c in temp_list2:
+        temp_list3.append(c)
+    count = 0
+    while count<len(temp_list2):
+        temp_list3[index3] = temp_list2[count]
+        count += 1
+        index3 = (index3+1)%len(temp_list2)
+    temp_list3.pop(2)
+    print(temp_list3)
+
+    for d in temp_list3:
+        temp_list4.append(d)
+    count = 0
+    while count<len(temp_list3):
+        temp_list4[index4] = temp_list3[count]
+        count += 1
+        index4 = (index4+1)%len(temp_list3)
+    temp_list4.pop(1)
+    print(temp_list4)
+
+    for e in temp_list4:
+        temp_list5.append(e)
+    count = 0
+    while count<len(temp_list4):
+        temp_list5[index5] = temp_list4[count]
+        count += 1
+        index5 = (index5+1)%len(temp_list4)
+    temp_list5.pop(1)
+    print(temp_list5)
+
+    for f in temp_list5:
+        temp_list6.append(f)
+    count = 0
+    while count<len(temp_list5):
+        temp_list6[index6] = temp_list5[count]
+        count += 1
+        index6 = (index6+1)%len(temp_list5)
+    temp_list6.pop(0)
+    print(temp_list6)
+ 
+array = ["Marin", "Lola", "Alex", "Yousuf", "Peter", "Jonny", "Hoque"]
+rightRotate(array)
