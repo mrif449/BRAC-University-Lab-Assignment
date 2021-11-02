@@ -1,0 +1,252 @@
+class Node:
+    def __init__(self,element):
+        self.element = element
+        self.next = None
+
+
+class myList:
+    def __init__(self,a=None):
+        self.head = Node(-1)
+        self.size = 0
+
+        if a != None:
+            self.head.next = a.head.next
+            length = self.head.next
+
+            while length != None:
+                self.size += 1
+                length = length.next
+
+    def create_list(self,key):
+        a=self.head
+        for x in key:
+            self.size+=1
+            b=Node(x)
+            a.next=b
+            a=a.next
+            x+=1
+    
+
+    def showList(self):
+        if self.size != 0:
+            length = self.head.next
+            while length != None:
+                print(length.element,end=" ")
+                length = length.next
+            print()
+        else:
+            print("Empty")
+
+    def isEmpty(self):
+        if self.size == 0:
+            return True
+        else: return False
+    
+    def clear(self):
+        if self.size != 0:
+            self.head.next = None
+            self.size = 0
+        else:
+            print("Empty List")
+    
+    def insert(self, newElement,idx = None):
+        a = Node(newElement)
+        b = self.head
+        while b.next != None:
+            b = b.next
+            if b.element == newElement:
+                print("Not empty")
+        if idx == None:
+            b.next = a
+            self.size += 1
+        elif self.size < idx:
+            print("Invalid")
+        else:
+            b = self.head
+            for x in range(idx):
+                b = b.next
+                x += 1
+            a.next = b.next
+            b.next = a
+            self.size += 1
+    
+    def remove(self, deletekey):
+        b = self.head
+        while b.next != None:
+            if b.next.element == deletekey:
+                i = b.next
+                b.next = i.next
+                i.next = None
+                self.size -= 1
+                return i.element
+            b = b.next
+        return None
+
+    def evenList(self):
+        b = self.head.next
+        key = []
+        new_list = myList()
+        while b != None:
+            if b.element%2 == 0:
+                key += [b.element]
+            b = b.next
+        new_list.create_list(key)
+        return new_list
+    
+    def find(self,b):
+        a = self.head.next
+        while a != None:
+            if a.element == b:
+                return True
+            a = a.next
+        return False
+
+    def reverseList(self):
+        start = self.head.next
+        rev = self.size/2
+        for x in range(int(rev)):
+            a = self.head
+            start2 = start.next
+            while x<(self.size-x):
+                a = a.next
+                x += 1
+            start.element, a.element = a.element, start.element
+            start = start2
+    
+    def sort(self):
+        for x in range(self.size):
+            a = self.head.next
+            while a.next != None:
+                if a.element > a.next.element:
+                    a.element, a.next.element = a.next.element, a.element
+                a = a.next
+    
+    def sum(self):
+        i = 0
+        a = self.head.next
+        while a != None:
+            i += a.element
+            a = a.next
+        return i
+    
+    def rotateKTimes(self,count,side):
+        if self.size > 0:
+            if side == "left":
+                for x in range(count):
+                #while 1<count:
+                    a = self.head.next
+                    b = a.element
+                    while a.next != None:
+                        a.element = a.next.element
+                        a = a.next
+                    a.element = b
+                    x += 1
+            elif side == "right":
+                for x in range(count):
+                    a = self.head.next
+                    b = a.element
+                    while a.next != None:
+                        c = a.next.element
+                        a.next.element = b
+                        b = c
+                        a = a.next
+                    self.head.next.element = b
+
+
+#==========================Tester Code==========================#
+        
+#Task-2.1, 2.2 -- Constructor & showList
+print("\n//=======Task 2.1, 2.2 -- Constructor & showList=======//")
+a = [10, 20, 30, 40, 50, 60]
+list1= myList()
+list1.create_list(a)
+list1.showList()
+
+#Task-2.3 -- isEmpty
+print("\n//========Task 2.3 -- isEmpty========//")
+isListEmpty = list1.isEmpty()
+print(isListEmpty) #Should print: false
+b = []
+list2 = myList()
+list2.create_list(b)
+isListEmpty = list2.isEmpty()
+print(isListEmpty) #Should print: true
+
+#Task-2.4 -- Clear
+print("\n//=======Task 2.4 -- Clear =======//")
+print("Before clearing Linked List")
+list1.showList() #Should print: 10->20->30->40->50->60
+list1.clear()
+print("After clearing Linked List")
+list1.showList() #Should print: Empty List
+
+#Task-2.5, 2.6 -- Insert
+print("\n//=======Task 2.5, 2.6 -- Insert=======//")
+c = [10, 20, 30, 40, 50, 60, 70, 80, 90]
+l3 = myList()
+l3.create_list(c)
+l3.showList() #Should print: 10->20->30->40->50->60->70->80->90
+l3.insert(100)
+l3.showList() #Should print: 10->20->30->40->50->60->70->80->90->100
+l3.insert(0, 0)
+l3.showList() #Should print: 0->10->20->30->40->50->60->70->80->90->100
+l3.insert(110, 5)
+l3.showList() #Should print: 0->10->20->30->40->110->50->60->70->80->90->100
+l3.showList() #Should print: 0->10->20->30->40->110->50->60->70->80->90->100->120
+l3.insert(50) #Should print: Key 50 already exists
+
+#Task-2.7 -- Remove
+print("\n//=======Task 2.7 -- Remove=======//")
+l3.showList() #Should print: 0->10->20->30->40->110->50->60->70->80->90->100->120
+l3.remove(0)
+l3.showList() #Should print: 10->20->30->40->110->50->60->70->80->90->100->120
+l3.remove(110) 
+l3.showList() #Should print: 10->20->30->40->50->60->70->80->90->100->120
+l3.remove(120)
+l3.showList() #Should print: 10->20->30->40->50->60->70->80->90->100
+l3.remove(120) #Should print: Key 120 does not exist
+
+#Task-2.8 -- EvenList
+print("\n//=======Task 2.8 -- EvenList =======//")
+d = [1, 2, 5, 3, 8]
+l4 = myList()
+l4.create_list(d)
+l5 = l4.evenList()
+l5.showList() #Should print: 2->8
+
+#Task-2.9 -- Find
+print("\n//=======Task 2.9 -- Find =======//")
+found = l4.find(5)
+print(found) #Should print: true
+found = l4.find(4)
+print(found) #Should print: false
+
+#Task-2.10 -- Reverse List
+print("\n//=======Task 2.10 -- Reverse =======//")
+print("Before Reverse: ", end='')
+l4.showList() #Should print: 1->2->5->3->8
+l4.reverseList()
+print("After Reverse: ", end='')
+l4.showList() #Should print: 8->3->5->2->1
+
+#Task-2.11 -- Sort
+print("\n//=======Task 2.11 -- Sort =======//")
+print("Before Sort: ", end='')
+l4.showList() #Should print: 8->3->5->2->1
+l4.sort()
+print("After Sort: ", end='')
+l4.showList() #Should print: 1->2->3->5->8
+
+#Task-2.12 -- Sum of Elements
+print("\n//=======Task 2.12 -- Sum of Elements =======//")
+l4.showList() #Should print: 1->2->3->5->8
+total = l4.sum()
+print("Sum of Elements:", total)
+
+#Task-2.13 -- Rotate
+print("\n//=======Task 2.13 -- Rotate =======//")
+l4.showList() #Should print: 1->2->3->5->8
+l4.rotateKTimes(2,"left")
+l4.showList() #Should print: 3->5->8->1->2
+l4.rotateKTimes(2, "right")
+l4.showList() #Should print: 1->2->3->5->8
